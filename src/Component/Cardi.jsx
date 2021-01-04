@@ -1,21 +1,16 @@
-import LoginForm from "./Component/LoginForm.jsx";
-import SignUp from "./Component/SignUp.jsx";
-import HomePage from "./Component/HomePage.jsx";
 import React, { Component } from "react";
+import { Table, Image, Button } from "semantic-ui-react";
+import "../App.css";
 import * as alasql from "alasql";
+class Cardi extends Component {
+  constructor(props) {
+    super(props);
 
-import "./App.css";
-import { BrowserRouter as Switch, Route } from "react-router-dom";
-
-class App extends Component {
-  constructor() {
-    super();
     this.state = {
-      searchfield: "",
-      cars: [],
-      max: "",
+      todo: [],
     };
   }
+
   componentWillMount() {
     alasql(`
       CREATE LOCALSTORAGE DATABASE IF NOT EXISTS cars_db;
@@ -25,18 +20,15 @@ class App extends Component {
     alasql(
       "CREATE TABLE IF NOT EXISTS cars (id INT AUTOINCREMENT PRIMARY KEY, photo STRING, serial STRING,model STRING,price STRING,year STRING,km STRING,about STRING)"
     );
-
-    console.log("appjs=" + this.state.cars);
   }
 
   componentDidMount() {
     this.fetchTodos();
-    console.log(this.state.cars);
   }
 
   fetchTodos() {
     const result = alasql("SELECT * FROM cars");
-    this.setState({ cars: result });
+    this.setState({ todo: result });
   }
 
   insertTodo(photo, serial, model, price, year, km, about) {
@@ -73,47 +65,36 @@ class App extends Component {
       this.state.about
     );
     this.fetchTodos();
-    console.log(this.state.cars);
+    console.log(this.state.todo);
   }
 
   removeTodo(id) {
     this.deleteTodo(id);
     this.fetchTodos();
+    window.location = "/homepage";
   }
 
-  onSearchChange = (event) => {
-    this.setState({ searchfield: event.target.value });
-  };
-
+  handleChange = (e, { value }) => this.setState({ value });
   render() {
-    const { cars, searchfield, max } = this.state;
-    const filteredRobots = cars.filter((car) => {
-      return (
-        car.about.toLowerCase().includes(searchfield.toLowerCase()),
-        car.price.toLowerCase() >= searchfield.toLowerCase()
-      );
-    });
-    return !cars.length ? (
-      <h1>Loading</h1>
-    ) : (
-      <div className="App">
-        <Switch>
-          <Route exact path="/">
-            <LoginForm />
-          </Route>
-          <Route path="/signup">
-            <SignUp />
-          </Route>
-          <Route path="/homepage">
-            <HomePage
-              searchChange={this.onSearchChange}
-              products={filteredRobots}
-            />
-          </Route>
-        </Switch>
-      </div>
+    return (
+      <Table.Row>
+        <Table.Cell>
+          <Image src={this.props.photo} size="tiny" />
+        </Table.Cell>
+        <Table.Cell>{this.props.serial}</Table.Cell>
+        <Table.Cell>{this.props.model}</Table.Cell>
+        <Table.Cell>{this.props.price} </Table.Cell>
+        <Table.Cell>{this.props.year}</Table.Cell>
+        <Table.Cell>{this.props.km} </Table.Cell>
+        <Table.Cell>{this.props.about} </Table.Cell>
+        <Table.Cell>
+          <Button color="green" onClick={(e) => this.removeTodo(this.props.id)}>
+            Buy!
+          </Button>
+        </Table.Cell>
+      </Table.Row>
     );
   }
 }
 
-export default App;
+export default Cardi;
