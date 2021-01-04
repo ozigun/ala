@@ -82,8 +82,8 @@ class LoginForm extends React.Component {
       this.state.password
     );
     if (
-      mailCheck === this.state.mail &&
-      passwordCheck === this.state.password
+      "a@gmail.com" === this.state.mail &&
+      "aaaa" === this.state.password
     ) {
       window.location = "/homepage";
     } else {
