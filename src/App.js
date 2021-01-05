@@ -88,6 +88,7 @@ class App extends Component {
   render() {
     const { cars, searchfield, max } = this.state;
     const filteredRobots = cars.filter((car) => {
+<<<<<<< HEAD
       return car.about.toLowerCase().includes(searchfield.toLowerCase());
     });
     return !cars.length ? (
@@ -107,6 +108,15 @@ class App extends Component {
           </Route>
         </Switch>
       </div>
+=======
+      return (
+        car.about.toLowerCase().includes(searchfield.toLowerCase()),
+        car.price.toLowerCase() >= searchfield.toLowerCase()
+      );
+    });
+    return !cars.length ? (
+      <h1>Loading</h1>
+>>>>>>> 516b8d445a84f8cec9b84e5dea8643d1393db37c
     ) : (
       <div className="App">
         <Switch>
