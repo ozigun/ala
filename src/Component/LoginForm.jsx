@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import * as alasql from "alasql";
 import {
   Button,
@@ -73,18 +73,13 @@ class LoginForm extends React.Component {
   }
 
   handleSubmit(event) {
-    const mailCheck = alasql(
-      "SELECT mail FROM todos WHERE mail= ?",
-      this.state.mail
-    );
-    const passwordCheck = alasql(
-      "SELECT password FROM todos WHERE password = ?",
-      this.state.password
-    );
-    if ("a@gmail.com" === this.state.mail && "aaaa" === this.state.password) {
+    var a = this.state.todo.find((x) => x.mail === this.state.mail);
+    if (a === undefined) {
+      alert("wrong user name");
+    } else if (a.password === this.state.password) {
       window.location = "/homepage";
     } else {
-      alert("noway");
+      alert("wrong mail ");
     }
     event.preventDefault();
   }

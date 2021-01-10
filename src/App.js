@@ -1,6 +1,7 @@
 import LoginForm from "./Component/LoginForm.jsx";
 import SignUp from "./Component/SignUp.jsx";
 import HomePage from "./Component/HomePage.jsx";
+
 import React, { Component } from "react";
 import * as alasql from "alasql";
 
@@ -23,10 +24,12 @@ class App extends Component {
       USE cars_db;
     `);
     alasql(
-      "CREATE TABLE IF NOT EXISTS cars (id INT AUTOINCREMENT PRIMARY KEY, photo STRING, serial STRING,model STRING,price STRING,year STRING,km STRING,about STRING)"
+      "CREATE TABLE IF NOT EXISTS cars (id INT AUTOINCREMENT PRIMARY KEY, photo STRING, serial STRING,model STRING,price NUMBER,year NUMBER,km NUMBER,about STRING,mail STRING)"
     );
 
-    console.log("appjs=" + this.state.cars);
+    // alasql('SELECT * INTO XLS("cars", {headers:true}) FROM cars');
+
+    // alasql("SELECT * INTO CSV('cars.csv') FROM cars");
   }
 
   componentDidMount() {
@@ -39,7 +42,7 @@ class App extends Component {
     this.setState({ cars: result });
   }
 
-  insertTodo(photo, serial, model, price, year, km, about) {
+  insertTodo(photo, serial, model, price, year, km, about, mail) {
     alasql("INSERT INTO cars VALUES ?", [
       {
         id: alasql.autoval("cars", "id", true),
@@ -50,6 +53,7 @@ class App extends Component {
         year,
         km,
         about,
+        mail,
       },
     ]);
   }
@@ -70,7 +74,8 @@ class App extends Component {
       this.state.price,
       this.state.year,
       this.state.km,
-      this.state.about
+      this.state.about,
+      this.state.mail
     );
     this.fetchTodos();
     console.log(this.state.cars);
@@ -86,12 +91,55 @@ class App extends Component {
   };
 
   render() {
-    const { cars, searchfield, max } = this.state;
+    const { cars, searchfield } = this.state;
     const filteredRobots = cars.filter((car) => {
       return car.about.toLowerCase().includes(searchfield.toLowerCase());
     });
+    const priceFilter = () => {
+      const a = cars.sort((a, b) => {
+        if (a.price < b.price) return -1;
+        return a.price > b.price ? 1 : 0;
+      });
+      this.setState({ cars: a });
+    };
+    const priceFilterYear = () => {
+      const a = cars.sort((a, b) => {
+        if (a.year < b.year) return -1;
+        return a.year > b.year ? 1 : 0;
+      });
+      this.setState({ cars: a });
+    };
+    const priceFilterKm = () => {
+      const a = cars.sort((a, b) => {
+        if (a.km < b.km) return -1;
+        return a.km > b.km ? 1 : 0;
+      });
+      this.setState({ cars: a });
+    };
+    const priceFilter2 = () => {
+      const a = cars.sort((a, b) => {
+        if (a.price > b.price) return -1;
+        return a.price < b.price ? 1 : 0;
+      });
+      this.setState({ cars: a });
+    };
+    const priceFilterYear2 = () => {
+      const a = cars.sort((a, b) => {
+        if (a.year > b.year) return -1;
+        return a.year < b.year ? 1 : 0;
+      });
+      this.setState({ cars: a });
+    };
+    const priceFilterKm2 = () => {
+      const a = cars.sort((a, b) => {
+        if (a.km > b.km) return -1;
+        return a.km < b.km ? 1 : 0;
+      });
+      this.setState({ cars: a });
+    };
+
     return !cars.length ? (
-      <div className="App">Loading</div>
+      <b>Loading</b>
     ) : (
       <div className="App">
         <Switch>
@@ -105,6 +153,12 @@ class App extends Component {
             <HomePage
               searchChange={this.onSearchChange}
               products={filteredRobots}
+              price={priceFilter}
+              price2={priceFilter2}
+              year={priceFilterYear}
+              year2={priceFilterYear2}
+              km={priceFilterKm}
+              km2={priceFilterKm2}
             />
           </Route>
         </Switch>

@@ -18,7 +18,7 @@ class Cardi extends Component {
       USE cars_db;
     `);
     alasql(
-      "CREATE TABLE IF NOT EXISTS cars (id INT AUTOINCREMENT PRIMARY KEY, photo STRING, serial STRING,model STRING,price STRING,year STRING,km STRING,about STRING)"
+      "CREATE TABLE IF NOT EXISTS cars (id INT AUTOINCREMENT PRIMARY KEY, photo STRING, serial STRING,model STRING,price NUMBER,year NEUMBER,km NUMBER,about STRING)"
     );
   }
 
@@ -88,8 +88,13 @@ class Cardi extends Component {
         <Table.Cell>{this.props.km} </Table.Cell>
         <Table.Cell>{this.props.about} </Table.Cell>
         <Table.Cell>
-          <Button color="green" onClick={(e) => this.removeTodo(this.props.id)}>
+          <Button color="red" onClick={(e) => this.removeTodo(this.props.id)}>
             Buy!
+          </Button>
+        </Table.Cell>
+        <Table.Cell>
+          <Button href={`mailto:${this.props.mail}`} color="green">
+            Chat
           </Button>
         </Table.Cell>
       </Table.Row>

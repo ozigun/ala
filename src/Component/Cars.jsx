@@ -16,6 +16,7 @@ class Cars extends Component {
       km: "",
       about: "",
       delte: "",
+      mail: "",
     };
   }
 
@@ -40,6 +41,9 @@ class Cars extends Component {
   handleChangeAbout(about) {
     this.setState({ about: about });
   }
+  handleChangeMail(mail) {
+    this.setState({ mail: mail });
+  }
 
   componentWillMount() {
     alasql(`
@@ -48,7 +52,7 @@ class Cars extends Component {
       USE cars_db;
     `);
     alasql(
-      "CREATE TABLE IF NOT EXISTS cars (id INT AUTOINCREMENT PRIMARY KEY, photo STRING, serial STRING,model STRING,price STRING,year STRING,km STRING,about STRING)"
+      "CREATE TABLE IF NOT EXISTS cars (id INT AUTOINCREMENT PRIMARY KEY, photo STRING, serial STRING,model STRING,price NUMBER,year NUMBER,km NUMBER,about STRING,mail STRING)"
     );
   }
 
@@ -62,7 +66,7 @@ class Cars extends Component {
     console.log(this.state.todo);
   }
 
-  insertTodo(photo, serial, model, price, year, km, about) {
+  insertTodo(photo, serial, model, price, year, km, about, mail) {
     alasql("INSERT INTO cars VALUES ?", [
       {
         id: alasql.autoval("cars", "id", true),
@@ -73,6 +77,7 @@ class Cars extends Component {
         year,
         km,
         about,
+        mail,
       },
     ]);
   }
@@ -94,7 +99,8 @@ class Cars extends Component {
       this.state.price,
       this.state.year,
       this.state.km,
-      this.state.about
+      this.state.about,
+      this.state.mail
     );
     this.fetchTodos();
     window.location = "/homepage";
@@ -130,6 +136,12 @@ class Cars extends Component {
               label="Model"
               placeholder="Model"
               onChange={(e) => this.handleChangeModel(e.target.value)}
+            />
+            <Form.Field
+              control={Input}
+              label="Mail"
+              placeholder="Mail"
+              onChange={(e) => this.handleChangeMail(e.target.value)}
             />
           </Form.Group>
           <Form.Group widths="equal">

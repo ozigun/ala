@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Card from "./Cardi";
-import { Table, Input } from "semantic-ui-react";
+import { Table, Button, Menu } from "semantic-ui-react";
 import * as alasql from "alasql";
 
 class CardList extends Component {
@@ -10,6 +10,7 @@ class CardList extends Component {
     this.state = {
       todo: [],
       value: "",
+      activeItem: "closest",
     };
   }
 
@@ -20,8 +21,9 @@ class CardList extends Component {
       USE cars_db;
     `);
     alasql(
-      "CREATE TABLE IF NOT EXISTS cars (id INT AUTOINCREMENT PRIMARY KEY, photo STRING, serial STRING,model STRING,price STRING,year STRING,km STRING,about STRING)"
+      "CREATE TABLE IF NOT EXISTS cars (id INT AUTOINCREMENT PRIMARY KEY, photo STRING, serial STRING,model STRING,price NUMBER,year NEUMBER,km NUMBER,about STRING)"
     );
+
     this.fetchTodos();
   }
 
@@ -30,9 +32,9 @@ class CardList extends Component {
   }
 
   fetchTodos() {
-    const result = alasql("SELECT * FROM cars");
+    const result = alasql("SELECT * FROM cars ");
     this.setState({ todo: result });
-    console.log(this.state.todo);
+    console.log(this.props.products);
   }
 
   insertTodo(photo, serial, model, price, year, km, about) {
@@ -82,8 +84,10 @@ class CardList extends Component {
   }
 
   handleChange = (e, { value }) => this.setState({ value });
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   render() {
+    const { activeItem } = this.state;
     return (
       <div>
         <Table basic="very" celled collapsing>
@@ -97,6 +101,7 @@ class CardList extends Component {
               <Table.HeaderCell>KM</Table.HeaderCell>
               <Table.HeaderCell>Title</Table.HeaderCell>
               <Table.HeaderCell>Buy</Table.HeaderCell>
+              <Table.HeaderCell>Chat</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body className="mt-5 mr-6 ml-6">
@@ -112,6 +117,7 @@ class CardList extends Component {
                   km={todo.km}
                   about={todo.about}
                   id={todo.id}
+                  mail={todo.mail}
                 />
               );
             })}

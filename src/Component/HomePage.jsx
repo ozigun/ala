@@ -13,7 +13,16 @@ const HomePage = (props) => {
       <Switch>
         <Navigation />
         <Route exact path="/homepage">
-          <Home onChange={props.searchChange} products={props.products} />
+          <Home
+            onChange={props.searchChange}
+            products={props.products}
+            price={props.price}
+            price2={props.price2}
+            year={props.year}
+            year2={props.year2}
+            km={props.km}
+            km2={props.km2}
+          />
         </Route>
         <Route path="/sellacar">
           <Cars />
