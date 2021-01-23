@@ -75,11 +75,13 @@ class LoginForm extends React.Component {
   handleSubmit(event) {
     var a = this.state.todo.find((x) => x.mail === this.state.mail);
     if (a === undefined) {
-      alert("wrong user name");
+      alert("yanlış kullanıcı adı");
     } else if (a.password === this.state.password) {
       window.location = "/homepage";
+    } else if (x.mail === "admin" && a.password === "admin") {
+      window.location = "/admin";
     } else {
-      alert("wrong mail ");
+      alert("yanlış mail ");
     }
     event.preventDefault();
   }
@@ -101,7 +103,7 @@ class LoginForm extends React.Component {
                 fluid
                 icon="user"
                 iconPosition="left"
-                placeholder="E-mail address"
+                placeholder="E-mail adres"
                 value={this.state.mail}
                 onChange={(e) => this.handleChangeMail(e.target.value)}
               />
@@ -109,7 +111,7 @@ class LoginForm extends React.Component {
                 fluid
                 icon="lock"
                 iconPosition="left"
-                placeholder="Password"
+                placeholder="Parola"
                 type="password"
                 value={this.state.password}
                 onChange={(e) => this.handleChangePassword(e.target.value)}

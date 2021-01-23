@@ -14,23 +14,23 @@ class Navigation extends Component {
       <div>
         <Menu color={"green"} pointing secondary>
           <Menu.Item
-            name="home"
-            active={activeItem === "home"}
+            name="Anasayfa"
+            active={activeItem === "Anasayfa"}
             onClick={this.handleItemClick}
             as={Link}
             to="/homepage"
           />
 
           <Menu.Item
-            name="sell a car"
-            active={activeItem === "sell a car"}
+            name="Araç Sat"
+            active={activeItem === "Araç Sat"}
             onClick={this.handleItemClick}
             as={Link}
             to="/sellacar"
           />
           <Menu.Item
-            name="TermAndConditions"
-            active={activeItem === "TermAndConditions"}
+            name="Kullanım Koşulları"
+            active={activeItem === "Kullanım Koşulları"}
             onClick={this.handleItemClick}
             as={Link}
             to="/termandconditions"

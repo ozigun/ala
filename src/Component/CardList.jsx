@@ -93,15 +93,15 @@ class CardList extends Component {
         <Table basic="very" celled collapsing>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Photo</Table.HeaderCell>
-              <Table.HeaderCell>Serial</Table.HeaderCell>
+              <Table.HeaderCell>Fotoğraf</Table.HeaderCell>
+              <Table.HeaderCell>Seri</Table.HeaderCell>
               <Table.HeaderCell>Model</Table.HeaderCell>
-              <Table.HeaderCell>Price</Table.HeaderCell>
-              <Table.HeaderCell>Year</Table.HeaderCell>
+              <Table.HeaderCell>Fiyat</Table.HeaderCell>
+              <Table.HeaderCell>Yıl</Table.HeaderCell>
               <Table.HeaderCell>KM</Table.HeaderCell>
-              <Table.HeaderCell>Title</Table.HeaderCell>
-              <Table.HeaderCell>Buy</Table.HeaderCell>
-              <Table.HeaderCell>Chat</Table.HeaderCell>
+              <Table.HeaderCell>Açıklama</Table.HeaderCell>
+              <Table.HeaderCell>Satın Al</Table.HeaderCell>
+              <Table.HeaderCell>İletişim</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body className="mt-5 mr-6 ml-6">

@@ -13,7 +13,7 @@ class SignUp extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { todo: [], password: "", mail: "" };
+    this.state = { todo: [], password: "", mail: "", value: "" };
   }
 
   handleChangePassword(password) {
@@ -21,6 +21,9 @@ class SignUp extends React.Component {
   }
   handleChangeMail(mail) {
     this.setState({ mail: mail });
+  }
+  handleChangeCheck(change) {
+    this.setState({ value: change });
   }
 
   componentWillMount() {
@@ -57,10 +60,11 @@ class SignUp extends React.Component {
     //const { inputTodo } = this.refs;
 
     if (!this.state.mail) return;
-
-    this.insertTodo(this.state.mail, this.state.password);
-    this.fetchTodos();
-    console.log(this.state.todo);
+    if (this.state.value === "this") {
+      this.insertTodo(this.state.mail, this.state.password);
+      this.fetchTodos();
+      console.log(this.state.todo);
+    }
   }
 
   removeTodo(id) {
@@ -77,7 +81,7 @@ class SignUp extends React.Component {
       >
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as="h2" color="teal" textAlign="center">
-            Sign Me Up!
+            Kayıt!
           </Header>
           <Form size="large" onSubmit={(e) => this.addTodo()}>
             <Segment stacked>
@@ -85,7 +89,7 @@ class SignUp extends React.Component {
                 fluid
                 icon="user"
                 iconPosition="left"
-                placeholder="E-mail address"
+                placeholder="E-mail adresi"
                 value={this.state.mail}
                 onChange={(e) => this.handleChangeMail(e.target.value)}
               />
@@ -93,7 +97,7 @@ class SignUp extends React.Component {
                 fluid
                 icon="lock"
                 iconPosition="left"
-                placeholder="Password"
+                placeholder="Parola"
                 type="password"
                 value={this.state.password}
                 onChange={(e) => this.handleChangePassword(e.target.value)}
@@ -102,17 +106,23 @@ class SignUp extends React.Component {
                 fluid
                 icon="lock"
                 iconPosition="left"
-                placeholder="Confirm Password"
+                placeholder="Parola Doğrula"
                 type="password"
               />
-
+              <Checkbox
+                label="Kullanım Koşulları"
+                name="checkboxRadioGroup"
+                value="this"
+                checked={this.state.value === "this"}
+                onChange={(e) => this.handleChangeCheck(e.target.value)}
+              />
               <Button color="teal" fluid size="large">
-                Sign Me Up!
+                Kaydet!
               </Button>
             </Segment>
           </Form>
           <Message>
-            Already have a sign? <a href="/">Sign In</a>
+            Zaten Bir Hesabım Var? <a href="/">Giriş Yap.</a>
           </Message>
         </Grid.Column>
       </Grid>

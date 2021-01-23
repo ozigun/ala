@@ -117,18 +117,18 @@ class Cars extends Component {
     return (
       <div>
         <Form onSubmit={(e) => this.addTodo()}>
-          <h1>WRITE YOUR CAR'S OPTIONS</h1>
+          <h1>Araç Bilgilerini Giriniz</h1>
           <Form.Group widths="equal">
             <Form.Field
               control={Input}
-              label="Photo Link"
-              placeholder="Photo link"
+              label="Fotoğraf Linki"
+              placeholder="Fotoğraf Linki"
               onChange={(e) => this.handleChangePhoto(e.target.value)}
             />
             <Form.Field
               control={Input}
-              label="Serial"
-              placeholder="Serial"
+              label="Seri"
+              placeholder="Seri"
               onChange={(e) => this.handleChangeSerial(e.target.value)}
             />
             <Form.Field
@@ -147,14 +147,14 @@ class Cars extends Component {
           <Form.Group widths="equal">
             <Form.Field
               control={Input}
-              label="Price"
-              placeholder="Price"
+              label="Fiyat"
+              placeholder="Fiyat"
               onChange={(e) => this.handleChangePrice(e.target.value)}
             />
             <Form.Field
               control={Input}
-              label="Year"
-              placeholder="Year"
+              label="Yıl"
+              placeholder="Yıl"
               onChange={(e) => this.handleChangeYear(e.target.value)}
             />
             <Form.Field
@@ -166,12 +166,12 @@ class Cars extends Component {
 
             <Form.Field
               control={Input}
-              label="About"
-              placeholder="Tell us more about your car..."
+              label="Hakkında"
+              placeholder="Aracınız Hakkında Açıklama..."
               onChange={(e) => this.handleChangeAbout(e.target.value)}
             />
           </Form.Group>
-          <Form.Field control={Button}>Submit</Form.Field>
+          <Form.Field control={Button}>Kaydet</Form.Field>
         </Form>
       </div>
     );

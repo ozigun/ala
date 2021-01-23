@@ -7,6 +7,7 @@ import * as alasql from "alasql";
 
 import "./App.css";
 import { BrowserRouter as Switch, Route } from "react-router-dom";
+import Admin from "./Component/Admin.jsx";
 
 class App extends Component {
   constructor() {
@@ -160,6 +161,9 @@ class App extends Component {
               km={priceFilterKm}
               km2={priceFilterKm2}
             />
+          </Route>
+          <Route path="/admin">
+            <Admin />
           </Route>
         </Switch>
       </div>
